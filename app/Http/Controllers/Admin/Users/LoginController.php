@@ -11,6 +11,9 @@ class LoginController extends Controller
 {
     public function index()
     {
+        if (Auth::check()) {
+            return redirect()->route(('admin'));
+        }
         echo view('admin.users.login', [
             "title" => "Login"
         ]);
@@ -22,7 +25,7 @@ class LoginController extends Controller
             "email" => "required|email:filter",
             "password" => "required|min:6"
         ]);
-        if (Auth::attempt(['email' => $request->input('email'), 'password' => $request->input('password')], $request->input('remember'))) {
+        if (Auth::guard('admin')->attempt(['email' => $request->input('email'), 'password' => $request->input('password')], $request->input('remember'))) {
             return redirect()->route('admin');
         }
         Session::flash('error', 'Email hoặc password không chính xác');

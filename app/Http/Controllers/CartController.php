@@ -21,7 +21,6 @@ class CartController extends Controller
         }
         return redirect('/carts');
     }
-    // truyen them  session muc de dung de lay ra so luong
     public function show()
     {
         $products = $this->cartService->getProduct();

@@ -27,8 +27,7 @@ class BLogClientService
         $matchProduct = ['active' => 1, "isDeleted" => false];
         return Blog::where($matchProduct)->select('id', 'name', 'description', 'content', 'thumb', 'slug')
             ->orderbyDesc('id')
-            ->limit(3)
-            ->get();
+            ->paginate(3);
     }
     public function show($id)
     {

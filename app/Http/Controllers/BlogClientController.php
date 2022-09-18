@@ -2,20 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Services\BLogClientService;
-use App\Http\Services\BlogService;
-use Illuminate\Http\Request;
+use App\Http\Services\BlogClientService;
 
 class BlogClientController extends Controller
 {
     protected $blogService;
-    public function __construct(BLogClientService $blogService)
+    public function __construct(BlogClientService $blogService)
     {
         $this->blogService = $blogService;
     }
     public function index()
     {
-        $blogs = $this->blogService->get();
+        $blogs = $this->blogService->getMainBlogClient();
         // $productRelated = $this->blogService->related($id);
         return view('client.blog.list', [
             "title" => "Bài viết",

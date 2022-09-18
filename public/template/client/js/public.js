@@ -9,7 +9,7 @@ function loadMore(e) {
         type: "POST",
         dataType: "JSON",
         data: { page },
-        url: "/service/load-products",
+        url: "/services/load-product",
         success: function (res) {
             console.log(res);
             if (res.html != "") {

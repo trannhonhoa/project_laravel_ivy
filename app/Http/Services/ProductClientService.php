@@ -39,4 +39,17 @@ class ProductClientService
         return Product::where('id', $id)->where('active', 1)->with('menu')->firstOrFail()
             ->where('id', '!=', $id)->limit(8)->get();
     }
+    public function getSearch($params = null, $request)
+    {
+
+        $matchProduct = ['active' => 1, "isDeleted" => false];
+
+        $query = Product::where($matchProduct)->where('name', 'like', "%$params%");
+        if ($request->input('price')) {
+            $query->orderby('price', $request->input('price'));
+        }
+        return $query->select('id', 'name', 'price', 'price_sale', 'thumb')
+            ->orderbyDesc('id')
+            ->get();
+    }
 }

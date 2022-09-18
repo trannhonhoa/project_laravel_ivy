@@ -28,12 +28,9 @@ if (is_null(Session::get('carts'))) {
                         <li>
                             <a href="/bai-viet.html">Bài viêt</a>
                         </li>
-
                         <li>
                             <a href="about.html">Về chúng tôi</a>
                         </li>
-
-
                     </ul>
                 </div>
 
@@ -47,9 +44,27 @@ if (is_null(Session::get('carts'))) {
                         data-notify="{{ $productQuantity }}">
                         <i class="zmdi zmdi-shopping-cart"></i>
                     </a>
-                    <a href="#" class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11">
-                        <i class="fa fa-user-o" aria-hidden="true"></i>
-                    </a>
+                    @if (Auth::user())
+                        <div class="dropdown">
+                            <a href="/login"
+                                class="dropdown-toggle dis-block icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11"
+                                type="button" data-toggle="dropdown">
+
+                                <i class="fa fa-user-o" aria-hidden="true"></i>
+                                <span style="font-size: 14px">{{ Auth::user()->name }}</span>
+                            </a>
+                            <span class="caret"></span>
+                            <ul class="dropdown-menu text-center">
+                                <li><a href="#">Đơn hàng</a></li>
+                                <li><a href="#">Cập nhật thông tin</a></li>
+                                <li><a href="/logout">Đăng xuất</a></li>
+                            </ul>
+                        </div>
+                    @else
+                        <a href="/login" class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11">
+                            <i class="fa fa-user-o" aria-hidden="true"></i>
+                        </a>
+                    @endif
                 </div>
 
             </nav>
@@ -131,11 +146,11 @@ if (is_null(Session::get('carts'))) {
                 <img src="/template/client/images/icons/icon-close2.png" alt="CLOSE">
             </button>
 
-            <form class="wrap-search-header flex-w p-l-15">
+            <form method="get" action="/san-pham.html" class="wrap-search-header flex-w p-l-15">
                 <button class="flex-c-m trans-04">
                     <i class="zmdi zmdi-search"></i>
                 </button>
-                <input class="plh3" type="text" name="search" placeholder="Search...">
+                <input class="plh3" type="search" name="q" placeholder="Search...">
             </form>
         </div>
     </div>

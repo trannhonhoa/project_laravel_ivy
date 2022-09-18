@@ -8,6 +8,7 @@ use App\Http\Services\MenuService;
 use App\Http\Services\ProductClientService;
 use App\Http\Services\SliderService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class MainClientController extends Controller
 {
@@ -46,5 +47,20 @@ class MainClientController extends Controller
         return response()->json([
             'html' => ''
         ]);
+    }
+    public function search(Request $request)
+    {
+        $result = [];
+        try {
+            $param = $_GET['q'];
+            $result = $this->productServie->getSearch($param, $request);
+            if ($result && count($result) == 0) {
+                Session::flash('error', "Sản phẩm không tồn tại");
+            }
+        } catch (\Throwable $th) {
+            Session::flash('error', $th->getMessage());
+        }
+
+        return view('client.search', ["title" => "Kết quả tìm kiếm", 'products' => $result])->render();
     }
 }

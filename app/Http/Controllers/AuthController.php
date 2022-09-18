@@ -11,25 +11,48 @@ class AuthController extends Controller
 {
     public function showformregister()
     {
+        if (Auth::check()) {
+            return redirect()->route(('main-client'));
+        }
         return view('client.user.register', [
             "title" => "Đăng ký"
         ]);
     }
     public function register(Request $request)
     {
+        if (Auth::check()) {
+            return redirect()->route(('main-client'));
+        }
+
         $this->validate($request, [
             "name" => "required",
             "email" => "required|email:filter",
-            "password" => "required|min:6"
+            "password" => "required|min:6",
+            "phone" => "required",
+            "address" => 'required'
         ]);
+
+        $users = User::where('email', $request->email)->get();
+
+        if (sizeof($users) > 0) {
+            $msg = 'Email đã tồn tại';
+            Session::flash('error', $msg);
+            return redirect()->back();
+        }
+
 
         $user = new User();
         $user->name = $request->name;
         $user->email = $request->email;
         $user->password = bcrypt($request->password);
+        $user->phone = $request->phone;
+        $user->address = $request->address;
+
+
+
         $user->save();
         Session::flash('success', "Đăng kí thành công");
-        return redirect()->route('show-form-register');
+        return redirect()->route('show-form-login');
     }
     public function showformlogin()
     {
@@ -49,5 +72,11 @@ class AuthController extends Controller
         }
         Session::flash('error', 'Email hoặc password không chính xác');
         return redirect()->back();
+    }
+    public function logout()
+    {
+        Auth::logout();
+        Session::forget('carts');
+        return redirect('/');
     }
 }

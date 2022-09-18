@@ -84,15 +84,24 @@
                                 </div>
                             </div>
 
-                            <button class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">
-                                Đặt hàng
-                            </button>
+                            @if (Auth::user())
+                                <button class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">
+                                    Đặt hàng
+                                </button>
+                            @else
+                                <a href="/login"
+                                    class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15
+                                    trans-04 pointer">
+
+                                </a>
+                            @endif
                         </div>
                     </div>
                 </div>
             @else
                 <div class="text-center">
                     <h2>Giỏ hàng trống</h2>
+                    <a href="/">Tiếp tục mua hàng</a>
                 </div>
             @endif
         </div>

@@ -7,6 +7,7 @@ use App\Models\Carts;
 use App\Models\Customers;
 use App\Models\Product;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 
@@ -24,15 +25,6 @@ class CartService
             ]);
             return true;
         }
-        // $exists = Arr::exists($carts, $product_id);
-        // if ($exists) {
-        //     $carts[$product_id] = $qty;
-        //     Session::put(
-        //         'carts',
-        //         $carts
-        //     );
-        //     return true;
-        // }
         $carts[$product_id] = $qty;
         Session::put(
             'carts',
@@ -64,7 +56,7 @@ class CartService
 
         return true;
     }
-    public function addCart($request)
+    public function addCart()
     {
         try {
             DB::beginTransaction();
@@ -72,18 +64,13 @@ class CartService
             if (is_null($carts)) {
                 return false;
             }
-            $customer = Customers::create([
-                'name' => "Nhon Hoa",
-                'email' => "tnhoa_20th@student.agu.edu.vn",
-                'address' => "address",
-                'phone' => "phone",
-                'content' => "content",
-            ]);
+            $customer = Auth::user();
+            $email = Auth::user()->email;
             $this->inforProduct($carts, $customer->id);
             DB::commit();
             Session::flash('success', 'Đặt hàng thành công');
             Session::forget('carts');
-            SendMail::dispatch('tnhoa_20th@student.agu.edu.vn')->delay(now()->addSeconds(5));
+            SendMail::dispatch($email)->delay(now()->addSeconds(5));
         } catch (\Throwable $th) {
             DB::rollBack();
             Session::flash('error', 'Đặt hàng thất bại');

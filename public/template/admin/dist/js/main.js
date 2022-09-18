@@ -31,7 +31,7 @@ $("#upload").change(function (e) {
         type: "POST",
         datatype: "JSON",
         data: form,
-        url: "/admin/upload/service",
+        url: "/admin/upload/services",
         success: function (res) {
             console.log(res);
             if (!res.error) {

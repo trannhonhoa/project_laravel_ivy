@@ -17,7 +17,7 @@ class CheckUserLogin
      */
     public function handle(Request $request, Closure $next)
     {
-        if (Auth::guest()) {
+        if (Auth::guest() || Auth::guard('admin')->user()) {
             return redirect()->intended('login');
         }
         return $next($request);

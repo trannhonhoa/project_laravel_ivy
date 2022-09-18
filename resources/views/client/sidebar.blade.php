@@ -1,5 +1,5 @@
 <!-- Sidebar -->
-<aside class="wrap-sidebar js-sidebar">
+{{-- <aside class="wrap-sidebar js-sidebar">
     <div class="s-full js-hide-sidebar"></div>
 
     <div class="sidebar flex-col-l p-t-22 p-b-25">
@@ -123,4 +123,4 @@
             </div>
         </div>
     </div>
-</aside>
+</aside> --}}
