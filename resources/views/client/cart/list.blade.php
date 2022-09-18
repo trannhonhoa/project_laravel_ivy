@@ -1,7 +1,9 @@
 @extends('client.main')
 @section('content')
+
     <form method="post" class="bg0 p-t-75 p-b-85">
         <div class="container">
+            @include('client.alert')
             @if (count($products) != 0)
                 <div class="row">
                     <div class="col-lg-10 col-xl-7 m-lr-auto m-b-50">
@@ -92,7 +94,7 @@
                                 <a href="/login"
                                     class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15
                                     trans-04 pointer">
-
+                                    Đăng nhập để đặt hàng
                                 </a>
                             @endif
                         </div>
@@ -101,7 +103,7 @@
             @else
                 <div class="text-center">
                     <h2>Giỏ hàng trống</h2>
-                    <a href="/">Tiếp tục mua hàng</a>
+                    <a class="btn btn-primary m-t-15" href="/">Tiếp tục mua hàng</a>
                 </div>
             @endif
         </div>

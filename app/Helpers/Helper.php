@@ -6,6 +6,7 @@ use Illuminate\Support\Str;
 
 class Helper
 {
+
     public static function menu($menus, $parent_id = 0, $char = '')
     {
         $html = '';
@@ -29,6 +30,7 @@ class Helper
         }
         return $html;
     }
+
     public static function categoryblog($menus)
     {
         $html = '';
@@ -69,6 +71,31 @@ class Helper
                     $html .= self::menus($menus, $menu->id);
                     $html .= "</ul>";
                 }
+                $html .= '</li>
+                ';
+            }
+        }
+        return $html;
+    }
+    public static function menusmobile($menus, $parent_id = 0)
+    {
+        $html = '';
+        foreach ($menus as $key => $menu) {
+            if ($menu->parent_id == $parent_id) {
+                $html .= '
+                    <li>
+                        <a href="/danh-muc/' . $menu->id . '-' . Str::slug($menu->name, '-') . '.html">
+                            ' . $menu->name . '
+                        </a>';
+                unset($menus[$key]);
+                if (self::isChild($menus, $menu->id)) {
+                    $html .= '<ul class="sub-menu-m"> ';
+                    $html .= self::menus($menus, $menu->id);
+                    $html .= "</ul>";
+                }
+                // $html .= ' <span class="arrow-main-menu-m">
+                //                 <i class="fa fa-angle-right" aria-hidden="true"></i>
+                //             </span>';
                 $html .= '</li>
                 ';
             }

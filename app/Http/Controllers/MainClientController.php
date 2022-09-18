@@ -51,6 +51,7 @@ class MainClientController extends Controller
     public function search(Request $request)
     {
         $result = [];
+        Session::forget('error');
         try {
             $param = $_GET['q'];
             $result = $this->productServie->getSearch($param, $request);
@@ -62,5 +63,9 @@ class MainClientController extends Controller
         }
 
         return view('client.search', ["title" => "Kết quả tìm kiếm", 'products' => $result])->render();
+    }
+    public function about_us()
+    {
+        return view('client.about_us', ["title" => "Về chúng tôi"]);
     }
 }

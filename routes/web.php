@@ -40,3 +40,5 @@ Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // search only product
 Route::get('/san-pham.html', [MainClientController::class, 'search']);
+
+Route::get('/ve-chung-toi.html', [MainClientController::class, 'about_us']);

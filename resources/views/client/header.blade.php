@@ -7,7 +7,10 @@ if (is_null(Session::get('carts'))) {
 @endphp
 <header class="header-v2">
     <!-- Header desktop -->
-    @php $menusHtml = \App\Helpers\Helper::menus($menus) @endphp
+    @php
+        $menusHtml = \App\Helpers\Helper::menus($menus);
+        $menusHtmlMobile = \App\Helpers\Helper::menusmobile($menus);
+    @endphp
     <div class="container-menu-desktop trans-03">
         <div class="wrap-menu-desktop">
             <nav class="limiter-menu-desktop p-l-45">
@@ -21,15 +24,11 @@ if (is_null(Session::get('carts'))) {
                 <div class="menu-desktop">
                     <ul class="main-menu">
                         {!! $menusHtml !!}
-                        {{-- <li class="label1" data-label1="hot">
-                            <a href="shoping-cart.html">Sale</a>
-                        </li> --}}
-
                         <li>
                             <a href="/bai-viet.html">Bài viêt</a>
                         </li>
                         <li>
-                            <a href="about.html">Về chúng tôi</a>
+                            <a href="/ve-chung-toi.html">Về chúng tôi</a>
                         </li>
                     </ul>
                 </div>
@@ -43,6 +42,10 @@ if (is_null(Session::get('carts'))) {
                     <a href="/carts" class="icon-header-item cl2 hov-cl1 trans-04 p-lr-11 icon-header-noti"
                         data-notify="{{ $productQuantity }}">
                         <i class="zmdi zmdi-shopping-cart"></i>
+                    </a>
+                    <a href="#" class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 "
+                        data-notify="0">
+                        <i class="zmdi zmdi-favorite-outline"></i>
                     </a>
                     @if (Auth::user())
                         <div class="dropdown">
@@ -88,11 +91,8 @@ if (is_null(Session::get('carts'))) {
                 data-notify="{{ $productQuantity }}">
                 <i class="zmdi zmdi-shopping-cart"></i>
             </a>
-            <a href="#" class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11">
-                <i class="fa fa-user-o" aria-hidden="true"></i>
-            </a>
-            <a href="#" class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti"
-                data-notify="0">
+
+            <a href="#" class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11" data-notify="0">
                 <i class="zmdi zmdi-favorite-outline"></i>
             </a>
         </div>
@@ -121,20 +121,35 @@ if (is_null(Session::get('carts'))) {
                 </span>
             </li> --}}
             {!! $menusHtml !!}
-
-
-            {{-- <li>
-                <a href="shoping-cart.html" class="label1 rs1" data-label1="hot">Hot</a>
-            </li> --}}
-
             <li>
                 <a href="/bai-viet.html">Bài viết</a>
             </li>
 
             <li>
-                <a href="about.html">Về chúng tôi</a>
+                <a href="/ve-chung-toi.html">Về chúng tôi</a>
             </li>
+            @if (Auth::user())
+                <li class="dropdown">
+                    <a href="/login">
 
+                        <i class="fa fa-user-o" aria-hidden="true"></i>
+                        <span style="font-size: 14px">{{ Auth::user()->name }}</span>
+                    </a>
+
+                    <ul class="sub-menu-m">
+                        <li><a href="#">Đơn hàng</a></li>
+                        <li><a href="#">Cập nhật thông tin</a></li>
+                        <li><a href="/logout">Đăng xuất</a></li>
+                    </ul>
+                    <span class="arrow-main-menu-m">
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </span>
+                </li>
+            @else
+                <a href="/login" class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11">
+                    <i class="fa fa-user-o" aria-hidden="true"></i>
+                </a>
+            @endif
 
         </ul>
     </div>

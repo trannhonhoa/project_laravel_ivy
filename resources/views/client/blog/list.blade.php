@@ -8,7 +8,7 @@
     <section class="bg0 p-t-62 p-b-60">
         <div class="container">
             <div class="row">
-                <div class="col-md-8 col-lg-9 p-b-80">
+                <div class="col-md-12 col-lg-12 p-b-80">
                     <div class="p-r-45 p-r-0-lg">
                         <!-- item blog -->
                         @foreach ($blogs as $key => $blog)
@@ -19,11 +19,11 @@
 
                                     <div class="flex-col-c-m size-123 bg9 how-pos5">
                                         <span class="ltext-107 cl2 txt-center">
-                                            22
+                                            25
                                         </span>
 
                                         <span class="stext-109 cl3 txt-center">
-                                            Jan 2018
+                                            Jan 2022
                                         </span>
                                     </div>
                                 </a>
@@ -44,15 +44,8 @@
                         @endforeach
 
                         <!-- Pagination -->
-                        {!! $blogs->links() !!}
-                        <div class="flex-l-m flex-w w-full p-t-10 m-lr--7">
-                            <a href="#" class="flex-c-m how-pagination1 trans-04 m-all-7 active-pagination1">
-                                1
-                            </a>
-
-                            <a href="#" class="flex-c-m how-pagination1 trans-04 m-all-7">
-                                2
-                            </a>
+                        <div style="display: flex; justify-content: center">
+                            {!! $blogs->links('vendor.pagination.bootstrap-4') !!}
                         </div>
                     </div>
                 </div>
@@ -63,7 +56,5 @@
     </section>
 @endsection
 <style>
-    .w-5 {
-        display: none;
-    }
+
 </style>

@@ -8,6 +8,7 @@ use App\Models\Customers;
 use App\Models\Product;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 
@@ -58,6 +59,7 @@ class CartService
     }
     public function addCart()
     {
+        // dd();
         try {
             DB::beginTransaction();
             $carts = Session::get('carts');
@@ -65,15 +67,16 @@ class CartService
                 return false;
             }
             $customer = Auth::user();
+
             $email = Auth::user()->email;
-            $this->inforProduct($carts, $customer->id);
+            $this->inforProduct($carts, Auth::user()->id);
             DB::commit();
             Session::flash('success', 'Đặt hàng thành công');
             Session::forget('carts');
-            SendMail::dispatch($email)->delay(now()->addSeconds(5));
+            SendMail::dispatch(Auth::user()->email)->delay(now()->addSeconds(5));
         } catch (\Throwable $th) {
             DB::rollBack();
-            Session::flash('error', 'Đặt hàng thất bại');
+            Session::flash('error', $th->getMessage());
             return false;
         }
         return true;
@@ -85,16 +88,17 @@ class CartService
             ->where('active', 1)
             ->whereIn('id', $productId)
             ->get();
-        $data = [];
+        // $data = [];
 
         foreach ($products as $key => $product) {
-            $data[] = [
+            $data = [
                 'customer_id' => $customer_id,
                 'product_id' => $product->id,
                 'qty' => $carts[$product->id],
-                'price' => $product->sale_price != 0 ? $product->sale_price  : $product->price
+                'price' => $product->sale_price != 0 ? $product->sale_price  : $product->price,
             ];
+            Carts::create($data);
         }
-        Carts::insert($data);
+        // Carts::insert($data);
     }
 }
