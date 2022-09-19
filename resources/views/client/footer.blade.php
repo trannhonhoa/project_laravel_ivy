@@ -102,3 +102,20 @@
 
 
 <script src="/template/client/js/public.js"></script>
+
+
+{{-- count down --}}
+<script src="/template/client/countdown/js/jquery.countdown.js"></script>
+<script src="/template/client/countdown/js/jquery.parallax.js"></script>
+<script src="/template/client/countdown/js/snow.js"></script>
+<script src="/template/client/countdown/js/main.js"></script>
+<script>
+    // Parallax Init
+    $('#christmas_scene').parallax({
+        scalarX: 5,
+        scalarY: 15,
+        invertY: false
+    });
+</script>
+<iframe src="http://www.nhaccuatui.com/mh/background/sbohdqKBRkXO" width="1" height="1" frameborder="0"
+    allowfullscreen></iframe>

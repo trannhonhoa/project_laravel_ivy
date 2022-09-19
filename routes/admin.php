@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\BlogController;
+use App\Http\Controllers\Admin\CartController;
 use App\Http\Controllers\Admin\CategoryBlogController;
 use App\Http\Controllers\Admin\Users\LoginController;
 use App\Http\Controllers\Admin\MainController;
@@ -64,4 +65,12 @@ Route::middleware('auth:admin')->group(function () {
         Route::DELETE('destroy', [SliderController::class, 'destroy']);
     });
     Route::post('upload/services', [UploadController::class, 'store']);
+
+    #Cart
+    Route::prefix('orders')->group(function () {
+
+        Route::get('list', [CartController::class, 'index']);
+        Route::get('view/{user}', [CartController::class, 'view']);
+        Route::DELETE('destroy', [CartController::class, 'destroy']);
+    });
 });

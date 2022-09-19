@@ -26,7 +26,7 @@ class MainClientController extends Controller
     public function index()
     {
         return view('client.home', [
-            "title" => "Shop nước hoa ABC",
+            "title" => "IVY moda",
             "sliders" => $this->sliderService->show(),
             "menus" => $this->menuService->show(),
             "products" => $this->productServie->getSlideProductClient(),

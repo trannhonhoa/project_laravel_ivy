@@ -57,11 +57,11 @@ if (is_null(Session::get('carts'))) {
                                 <span style="font-size: 14px">{{ Auth::user()->name }}</span>
                             </a>
                             <span class="caret"></span>
-                            <ul class="dropdown-menu text-center">
-                                <li><a href="#">Đơn hàng</a></li>
-                                <li><a href="#">Cập nhật thông tin</a></li>
-                                <li><a href="/logout">Đăng xuất</a></li>
-                            </ul>
+                            <div class="dropdown-menu text-center" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="#">Đổi thông tin</a>
+                                <a class="dropdown-item" href="#">Đơn hàng</a>
+                                <a class="dropdown-item" href="/logout">Đăng xuất</a>
+                            </div>
                         </div>
                     @else
                         <a href="/login" class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11">
@@ -146,7 +146,7 @@ if (is_null(Session::get('carts'))) {
                     </span>
                 </li>
             @else
-                <a href="/login" class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11">
+                <a href="/login" class="dis-block icon-header-item cl2 trans-04 p-l-22 p-r-11">
                     <i class="fa fa-user-o" aria-hidden="true"></i>
                 </a>
             @endif

@@ -88,17 +88,16 @@ class CartService
             ->where('active', 1)
             ->whereIn('id', $productId)
             ->get();
-        // $data = [];
+
 
         foreach ($products as $key => $product) {
             $data = [
                 'customer_id' => $customer_id,
                 'product_id' => $product->id,
                 'qty' => $carts[$product->id],
-                'price' => $product->sale_price != 0 ? $product->sale_price  : $product->price,
+                'price' => $product->price_sale != 0 ? $product->price_sale  : $product->price,
             ];
             Carts::create($data);
         }
-        // Carts::insert($data);
     }
 }
