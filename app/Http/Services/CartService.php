@@ -3,6 +3,7 @@
 namespace App\Http\Services;
 
 use App\Jobs\SendMail;
+use App\Models\CartDetails;
 use App\Models\Carts;
 use App\Models\Customers;
 use App\Models\Product;
@@ -66,14 +67,16 @@ class CartService
             if (is_null($carts)) {
                 return false;
             }
-            $customer = Auth::user();
 
-            $email = Auth::user()->email;
-            $this->inforProduct($carts, Auth::user()->id);
+            $cartAdded = Carts::create([
+                "customer_id" => Auth::user()->id,
+                "status" => 0,
+            ]);
+            $this->inforProduct($carts, $cartAdded->id);
             DB::commit();
             Session::flash('success', 'Đặt hàng thành công');
             Session::forget('carts');
-            SendMail::dispatch(Auth::user()->email)->delay(now()->addSeconds(5));
+            // SendMail::dispatch(Auth::user()->email)->delay(now()->addSeconds(5));
         } catch (\Throwable $th) {
             DB::rollBack();
             Session::flash('error', $th->getMessage());
@@ -81,7 +84,7 @@ class CartService
         }
         return true;
     }
-    public function inforProduct($carts, $customer_id)
+    public function inforProduct($carts, $cartAdded)
     {
         $productId = array_keys($carts);
         $products =  Product::select('id', 'name', 'price', 'price_sale', 'thumb')
@@ -92,12 +95,12 @@ class CartService
 
         foreach ($products as $key => $product) {
             $data = [
-                'customer_id' => $customer_id,
+                'cart_id' => $cartAdded,
                 'product_id' => $product->id,
                 'qty' => $carts[$product->id],
                 'price' => $product->price_sale != 0 ? $product->price_sale  : $product->price,
             ];
-            Carts::create($data);
+            CartDetails::create($data);
         }
     }
 }

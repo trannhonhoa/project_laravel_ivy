@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Services\CartAdminService;
 use App\Models\User;
+use App\Models\Carts;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CartController extends Controller
 {
@@ -21,14 +23,32 @@ class CartController extends Controller
             "orders" => $this->cartService->getOrder()
         ]);
     }
-    public function view(User $user)
+    public function view(Carts $cart)
     {
+
+
+        $user = User::where('id', $cart->customer_id)->first();
+
+        $orders =  DB::table('cart_details')
+            ->join('products', 'cart_details.product_id', '=', 'products.id')
+            ->select(
+                'products.id',
+                'products.name',
+                'products.thumb',
+                'cart_details.cart_id',
+                'cart_details.qty',
+                'cart_details.price'
+            )
+            ->where(['cart_details.cart_id' => $cart->id])
+            ->get();
+
+
+
         return view('admin.cart.list_order_detail', [
             "title" => "Chi tiết đơn đặt hàng: " . $user->name,
             "user" => $user,
-            'orders' => $user->orders()->with(['product' => function ($query) {
-                $query->select('id', 'name', 'thumb',);
-            }])->get()
+            'orders' => $orders,
+            "cart" => $cart
         ]);
     }
     // public function destroy(Request $request)
@@ -47,4 +67,8 @@ class CartController extends Controller
     //         ]);
     //     }
     // }
+    public function confirm($id = '')
+    {
+        echo $id;
+    }
 }

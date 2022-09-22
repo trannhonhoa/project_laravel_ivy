@@ -70,7 +70,8 @@ Route::middleware('auth:admin')->group(function () {
     Route::prefix('orders')->group(function () {
 
         Route::get('list', [CartController::class, 'index']);
-        Route::get('view/{user}', [CartController::class, 'view']);
+        Route::get('view/{cart}', [CartController::class, 'view']);
         Route::DELETE('destroy', [CartController::class, 'destroy']);
+        Route::get('/confirm/{id}', [CartController::class, 'confirm']);
     });
 });

@@ -34,5 +34,4 @@
 <!--===============================================================================================-->
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <!--===============================================================================================-->
-<link rel="stylesheet" type="text/css" href="/template/client/countdown/css/style.css" />
-<link rel="stylesheet" type="text/css" href="/template/client/countdown/css/media-query.css" />
+@yield('header')

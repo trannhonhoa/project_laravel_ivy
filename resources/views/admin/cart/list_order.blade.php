@@ -6,22 +6,22 @@
     <table class="table">
         <thead>
             <tr>
-                <th style="width: 50px">ID</th>
-                <th>Tên Khách hàng</th>
-                <th>Số điện thoại</th>
-                <th>Email</th>
+                <th style="width: 150px">Mã đơn hàng</th>
+                <th>Mã Khách hàng</th>
+                <th>Trạng thái</th>
+                {{-- <th>Email</th> --}}
                 <th>Ngày đặt</th>
 
-                <th>Cài đặt</th>
+                <th>Chi tiết</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($orders as $order)
                 <tr>
                     <td>{{ $order->id }}</td>
-                    <td>{{ $order->name }}</td>
-                    <td>{{ $order->phone }}</td>
-                    <td>{{ $order->email }}</td>
+                    <td>{{ $order->customer_id }}</td>
+
+                    <td>{{ $order->status == 1 ? 'Đã giao' : 'Chờ xác nhận...' }}</td>
                     <td>{{ $order->created_at }}</td>
                     <td>
                         <a class="btn btn-primary" href="/admin/orders/view/{{ $order->id }}"><i class="fa fa-eye"

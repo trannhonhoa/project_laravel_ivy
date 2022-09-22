@@ -30,7 +30,7 @@
                         <tr class="table_row">
                             <td class="column-1">
                                 <div class="how-itemcart1">
-                                    <img width="100px" src="{{ $order->product->thumb }}" alt="IMG">
+                                    <img width="100px" src="{{ $order->thumb }}" alt="IMG">
                                 </div>
                             </td>
                             <td class="column-2">{{ $order->qty }}</td>
@@ -42,12 +42,17 @@
                         </tr>
                     @endforeach
                     <tr>
-                        <td style="font-size: 20px" colspan="4" align="center" class="column-4">
-                            <strong> Tổng tiền: ${{ number_format($total, 0) }}</strong>
-                            <a href="/admin/orders/success" class="btn btn-success">Xác nhận</a>
+                        <td style="font-size: 20px" colspan="2" align="center" class="column-4">
+                            @if ($cart->status == 1)
+                                <a href="btn btn-succes">Đơn hàng đã được giao</a>
+                            @else
+                                <strong> Tổng tiền: ${{ number_format($total, 0) }}</strong>
+                                <a href="/admin/orders/confirm/{{ $order->cart_id }}" class="btn btn-primary">Xác nhận</a>
+                            @endif
                         </td>
-                        <td>
+                        <td style="font-size: 20px" colspan="2" align="center" class="column-4">
 
+                            <a href="/admin/orders/confirm/{{ $order->cart_id }}" class="btn btn-info">In đơn hàng</a>
                         </td>
                     </tr>
                 </tbody>

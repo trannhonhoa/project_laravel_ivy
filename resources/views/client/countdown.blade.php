@@ -2,6 +2,7 @@
 <!-- Parallax Container -->
 <div id="container" class="parallax-container snow">
     <ul id="christmas_scene" class="christmas-scene">
+
         <li class="layer" data-depth="0.80">
             <div class="layer-5 layer-photo photo-zoom"></div>
         </li>
