@@ -65,6 +65,7 @@ Route::middleware('auth:admin')->group(function () {
         Route::DELETE('destroy', [SliderController::class, 'destroy']);
     });
     Route::post('upload/services', [UploadController::class, 'store']);
+    Route::post('/thongke', [MainController::class, 'thongke']);
 
     #Cart
     Route::prefix('orders')->group(function () {

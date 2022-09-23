@@ -5,7 +5,8 @@
 <!-- AdminLTE App -->
 <script src="/template/admin/dist/js/adminlte.min.js"></script>
 <script src="/template/admin/dist/js/main.js"></script>
-
+<script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
 {{-- dashboard --}}
 <script>
     $.widget.bridge('uibutton', $.ui.button)

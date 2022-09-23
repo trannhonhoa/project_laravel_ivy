@@ -17,4 +17,5 @@
 <link rel="stylesheet" href="/template/admin/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
 <link rel="stylesheet" href="/template/admin/plugins/daterangepicker/daterangepicker.css">
 <link rel="stylesheet" href="/template/admin/plugins/summernote/summernote-bs4.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
 @yield('head')

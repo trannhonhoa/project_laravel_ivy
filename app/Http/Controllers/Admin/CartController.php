@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Services\CartAdminService;
+use App\Models\CartDetails;
 use App\Models\User;
 use App\Models\Carts;
-use Illuminate\Http\Request;
+use App\Models\ThongKe;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 
 class CartController extends Controller
@@ -69,6 +71,48 @@ class CartController extends Controller
     // }
     public function confirm($id = '')
     {
-        echo $id;
+        // liet ke don hang
+        $customerOrder = CartDetails::where('cart_id', $id)->get();
+
+        // truy van thong ke
+        $now = Carbon::now("Asia/Ho_Chi_Minh")->toDateString();
+
+        $samedays = ThongKe::where('ngaydat', "$now")->get();
+
+        // dd($customerOrder);
+
+
+        $total = 0;
+        $thanhtien = 0;
+        foreach ($customerOrder as $key => $value) {
+
+            $total += $value['qty'];
+            $thanhtien += $value['qty'] * $value['price'];
+        }
+
+        if (count($samedays) <= 0) {
+            ThongKe::create([
+                "ngaydat" => $now,
+                "donhang" => 1,
+                "doanhthu" => $thanhtien,
+                "soluong" => $total,
+            ]);
+        } else {
+            foreach ($samedays as $key => $value) {
+                $slb = $value['soluong'] + $total;
+                $tongtien = $value['doanhthu'] + $thanhtien;
+                $donhang = $value['donhang'] + 1;
+
+
+                ThongKe::where("ngaydat", "$now")->update([
+                    "donhang" => $donhang,
+                    "doanhthu" => $tongtien,
+                    "soluong" => $slb,
+                ]);
+            }
+        }
+        Carts::where('id', $id)->update(['status' => 1]);
+
+        return redirect()->back();
     }
 }

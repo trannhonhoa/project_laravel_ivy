@@ -44,7 +44,7 @@
                     <tr>
                         <td style="font-size: 20px" colspan="2" align="center" class="column-4">
                             @if ($cart->status == 1)
-                                <a href="btn btn-succes">Đơn hàng đã được giao</a>
+                                <button class="btn btn-succes">Đơn hàng đã được giao</button>
                             @else
                                 <strong> Tổng tiền: ${{ number_format($total, 0) }}</strong>
                                 <a href="/admin/orders/confirm/{{ $order->cart_id }}" class="btn btn-primary">Xác nhận</a>
