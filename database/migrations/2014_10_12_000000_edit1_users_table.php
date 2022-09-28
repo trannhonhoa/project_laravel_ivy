@@ -23,8 +23,9 @@ return new class extends Migration
             // $table->foreignId('current_team_id')->nullable();
             // $table->string('profile_photo_path', 2048)->nullable();
             // $table->timestamps();
-            $table->string('phone')->default('09123');
-            $table->string('address')->default("viet nam");
+            // $table->string('phone')->default('09123');
+            // $table->string('address')->default("viet nam");
+            $table->string('role')->default('user');
         });
     }
 
