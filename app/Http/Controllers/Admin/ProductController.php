@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exports\SanPhamExport;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Product\ProductRequest;
 use App\Http\Services\MenuService;
 use App\Http\Services\ProductService;
+use App\Imports\SanPhamImport;
 use Illuminate\Http\Request;
 use App\Models\Product;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ProductController extends Controller
 {
@@ -81,5 +84,15 @@ class ProductController extends Controller
                 "message" => "Xóa sản phẩm thất bại"
             ]);
         }
+    }
+    public function postNhap(Request $request)
+    {
+        Excel::import(new SanPhamImport, $request->file('file_excel'));
+        return redirect()->back();
+    }
+    // Xuất ra Excel
+    public function getXuat()
+    {
+        return Excel::download(new SanPhamExport, 'danh-sach-san-pham.xlsx');
     }
 }

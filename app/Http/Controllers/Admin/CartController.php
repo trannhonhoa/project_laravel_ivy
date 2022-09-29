@@ -10,6 +10,7 @@ use App\Models\Carts;
 use App\Models\ThongKe;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
+use PDF;
 
 class CartController extends Controller
 {
@@ -114,5 +115,16 @@ class CartController extends Controller
         Carts::where('id', $id)->update(['status' => 1]);
 
         return redirect()->back();
+    }
+    public function outputpdf()
+    {
+        $data = [
+            'title' => 'Welcome to Tutsmake.com',
+            'date' => date('m/d/Y')
+        ];
+
+        $pdf = PDF::loadView('admin.cart.PDFCart', $data);
+
+        return $pdf->download('tutsmake.pdf');
     }
 }

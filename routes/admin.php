@@ -27,7 +27,7 @@ Route::middleware('auth:admin')->group(function () {
         Route::DELETE('destroy', [MenuController::class, 'destroy']);
     });
     #Menu
-    Route::prefix('category')->group(function () {
+    Route::prefix('category-blog')->group(function () {
         Route::get('add', [CategoryBlogController::class, 'create']);
         Route::post('store', [CategoryBlogController::class, 'store']);
         Route::get('list', [CategoryBlogController::class, 'index']);
@@ -53,6 +53,10 @@ Route::middleware('auth:admin')->group(function () {
         Route::get('edit/{product}', [ProductController::class, 'show']);
         Route::post('edit/{product}', [ProductController::class, 'update']);
         Route::DELETE('destroy', [ProductController::class, 'destroy']);
+
+        #excel
+        Route::post('/inputexcel', [ProductController::class, 'postNhap'])->name('sanpham.nhap');
+        Route::get('/outputexcel', [ProductController::class, 'getXuat'])->name('sanpham.xuat');
     });
 
     #Slider
@@ -74,5 +78,8 @@ Route::middleware('auth:admin')->group(function () {
         Route::get('view/{cart}', [CartController::class, 'view']);
         Route::DELETE('destroy', [CartController::class, 'destroy']);
         Route::get('/confirm/{id}', [CartController::class, 'confirm']);
+        Route::get('/create-pdf-file', [CartController::class, 'outputpdf'])->name('outputexcel');
     });
+    #excel
+
 });
