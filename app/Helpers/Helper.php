@@ -14,10 +14,10 @@ class Helper
             if ($menu->parent_id == $parent_id) {
                 $html .= '
                     <tr>
-                        <td>' . $menu->id  . '</td>
-                        <td>' . " " . $char . $menu->name . '</td>
+                        <td>' . htmlspecialchars($menu->id)  . '</td>
+                        <td>' . " " . $char . htmlspecialchars($menu->name) . '</td>
                         <td>' . self::isActive($menu->active) . '</td>
-                        <td>' . $menu->updated_at . '</td>
+                        <td>' . htmlspecialchars($menu->updated_at) . '</td>
                         <td>
                             <a class="btn btn-primary" href="/admin/menus/edit/' . $menu->id . '"><i class="fas fa-edit"></i></a>
                             <a class="btn btn-danger" href="#" onclick="removeRow(' . $menu->id . ',\'/admin/menus/destroy\')"><i class="fas fa-trash"></i></a>
@@ -37,10 +37,10 @@ class Helper
         foreach ($menus as $key => $menu) {
             $html .= '
                     <tr>
-                        <td>' . $menu->id  . '</td>
-                        <td>' . $menu->name . '</td>
+                        <td>' . htmlspecialchars($menu->id)  . '</td>
+                        <td>' . htmlspecialchars($menu->name) . '</td>
                         <td>' . self::isActive($menu->active) . '</td>
-                        <td>' . $menu->updated_at . '</td>
+                        <td>' . htmlspecialchars($menu->updated_at) . '</td>
                         <td>
                             <a class="btn btn-primary" href="/admin/category-blog/edit/' . $menu->id . '"><i class="fas fa-edit"></i></a>
                             <a class="btn btn-danger" href="#" onclick="removeRow(' . $menu->id . ',\'/admin/category-blog/destroy\')"><i class="fas fa-trash"></i></a>
@@ -63,7 +63,7 @@ class Helper
                 $html .= '
                     <li>
                         <a href="/danh-muc/' . $menu->id . '-' . Str::slug($menu->name, '-') . '.html">
-                            ' . $menu->name . '
+                            ' . htmlspecialchars($menu->name) . '
                         </a>';
                 unset($menus[$key]);
                 if (self::isChild($menus, $menu->id)) {
@@ -85,7 +85,7 @@ class Helper
                 $html .= '
                     <li>
                         <a href="/danh-muc/' . $menu->id . '-' . Str::slug($menu->name, '-') . '.html">
-                            ' . $menu->name . '
+                            ' . htmlspecialchars($menu->name) . '
                         </a>';
                 unset($menus[$key]);
                 if (self::isChild($menus, $menu->id)) {
