@@ -90,6 +90,25 @@
                                 <button class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">
                                     Đặt hàng
                                 </button>
+                                <hr>
+                                <div class="m-t-20">
+                                    Hình thức thanh toán
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="flexRadioDefault"
+                                            id="flexRadioDefault1">
+                                        <label class="form-check-label" for="flexRadioDefault1">
+                                            Tiền mặt
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="flexRadioDefault"
+                                            id="flexRadioDefault2" checked>
+                                        <label class="form-check-label" for="flexRadioDefault2">
+                                            <div id="paypal-button">
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
                             @else
                                 <a href="/login"
                                     class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15
@@ -97,6 +116,7 @@
                                     Đăng nhập để đặt hàng
                                 </a>
                             @endif
+
                         </div>
                     </div>
                 </div>
@@ -141,3 +161,43 @@
         </div>
     </form>
 @endsection
+<script src="https://www.paypalobjects.com/api/checkout.js"></script>
+<script>
+    paypal.Button.render({
+        // Configure environment
+        env: 'sandbox',
+        client: {
+            sandbox: 'AZwuDktpCzVcFDn6dng1aCM6fi6JF-jdt6b4YQ9-UmnaRo6S-k5zEBcl2fbmGrfbq6s2Ujbw-BxVapuS',
+            production: 'demo_production_client_id'
+        },
+        // Customize button (optional)
+        locale: 'en_US',
+        style: {
+            size: 'small',
+            color: 'gold',
+            shape: 'pill',
+        },
+
+        // Enable Pay Now checkout flow (optional)
+        commit: true,
+
+        // Set up a payment
+        payment: function(data, actions) {
+            return actions.payment.create({
+                transactions: [{
+                    amount: {
+                        total: '0.01',
+                        currency: 'USD'
+                    }
+                }]
+            });
+        },
+        // Execute the payment
+        onAuthorize: function(data, actions) {
+            return actions.payment.execute().then(function() {
+                // Show a confirmation message to the buyer
+                window.alert('Thank you for your purchase!');
+            });
+        }
+    }, '#paypal-button');
+</script>
