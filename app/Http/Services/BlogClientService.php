@@ -4,7 +4,7 @@ namespace App\Http\Services;
 
 use App\Models\Blog;
 
-class BLogClientService
+class BlogClientService
 {
     const LIMIT = 3;
     public function get($page = null)

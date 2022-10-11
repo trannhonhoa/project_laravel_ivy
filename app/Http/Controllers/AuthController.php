@@ -3,12 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use Laravel\Socialite\Facades\Socialite;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
+
     public function showformregister()
     {
         if (Auth::check()) {
@@ -64,9 +69,9 @@ class AuthController extends Controller
     {
         $this->validate($request, [
             "email" => "required|email:filter",
-            "password" => "required|min:6"
+            "password" => "required|min:6",
+            'g-recaptcha-response' => 'required|captcha',
         ]);
-
         if (Auth::attempt(['email' => $request->input('email'), 'password' => $request->input('password')], $request->input('remember'))) {
             return redirect()->route('main-client');
         }
@@ -78,5 +83,35 @@ class AuthController extends Controller
         Auth::logout();
         Session::forget('carts');
         return redirect('/');
+    }
+    // google login
+    public function getGoogleLogin()
+    {
+        return Socialite::driver('google')->redirect();
+    }
+    public function getGoogleCallback()
+    {
+        try {
+            $user = Socialite::driver('google')->user();
+        } catch (Exception $e) {
+            return redirect('/login')->with('error', 'Lỗi xác thực. Xin vui lòng thử lại!');
+        }
+        $existingUser = User::where('email', $user->email)->first();
+        if ($existingUser) {
+            // Nếu người dùng đã tồn tại thì đăng nhập
+            Auth::login($existingUser, true);
+            return redirect('/');
+        } else {
+            // Nếu chưa tồn tại người dùng thì thêm mới
+            $newUser = User::create([
+                'name' => $user->name,
+                // 'username' => Str::before($user->email, '@'),
+                'email' => $user->email,
+                'password' => Hash::make('larashop@2020'), // Gán mật khẩu tự do
+            ]);
+            // Sau đó đăng nhập
+            Auth::login($newUser, true);
+            return redirect('/');
+        }
     }
 }

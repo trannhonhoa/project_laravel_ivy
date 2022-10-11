@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Blog\BlogRequest;
-use App\Http\Services\BLogClientService;
+
+use App\Http\Services\BlogClientService;
 use App\Http\Services\MenuService;
 use App\Http\Services\ProductClientService;
 use App\Http\Services\SliderService;
@@ -16,7 +16,7 @@ class MainClientController extends Controller
     protected $menuService;
     protected $productServie;
     protected $blogService;
-    public function __construct(BLogClientService $blogService, SliderService $sliderService, MenuService $menuService, ProductClientService $productServie)
+    public function __construct(BlogClientService $blogService, SliderService $sliderService, MenuService $menuService, ProductClientService $productServie)
     {
         $this->sliderService = $sliderService;
         $this->menuService = $menuService;

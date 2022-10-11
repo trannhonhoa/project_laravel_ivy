@@ -37,7 +37,9 @@ Route::post('/register', [AuthController::class, 'register'])->name('register');
 Route::get('/login', [AuthController::class, 'showformlogin'])->name('show-form-login');
 Route::post('/login', [AuthController::class, 'login'])->name('login.store');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
-
+//google login
+Route::get('/login/google', [AuthController::class, 'getGoogleLogin'])->name('google.login');
+Route::get('/login/google/callback', [AuthController::class, 'getGoogleCallback'])->name('google.callback');
 // search only product
 Route::get('/san-pham.html', [MainClientController::class, 'search']);
 
