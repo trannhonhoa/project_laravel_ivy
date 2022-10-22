@@ -3,7 +3,7 @@
     <script src="/ckeditor/ckeditor.js"></script>
 @endsection
 @section('content')
-    <table class="table">
+    <table class="table" id="myTable">
         <thead>
             <tr>
                 <th style="width: 50px">ID</th>

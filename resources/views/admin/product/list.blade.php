@@ -11,7 +11,7 @@
         <a href="{{ route('sanpham.xuat') }}" class="btn btn-success"><i class="fa fa-upload" aria-hidden="true"></i> Xuất ra
             Excel</a>
     </p>
-    <table class="table">
+    <table class="table data-table" id="myTable">
         <thead>
             <tr>
                 <th style="width: 50px">ID</th>
