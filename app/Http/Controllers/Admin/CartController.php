@@ -116,13 +116,31 @@ class CartController extends Controller
 
         return redirect()->back();
     }
-    public function outputpdf()
+    public function outputpdf(Carts $cart)
     {
-        $data = [
-            'title' => 'Welcome to Tutsmake.com',
-            'date' => date('m/d/Y')
-        ];
+        
+        $user = User::where('id', $cart->customer_id)->first();
+        $orders =  DB::table('cart_details')
+            ->join('products', 'cart_details.product_id', '=', 'products.id')
+            ->select(
+                'products.id',
+                'products.name',
+                'products.thumb',
+                'cart_details.cart_id',
+                'cart_details.qty',
+                'cart_details.price'
+            )
+            ->where(['cart_details.cart_id' => $cart->id])
+            ->get();
 
+
+            $data = [
+                'title' => 'Thanks for buying clothes',
+                'date' => date('m/d/Y'),
+                "user" => $user,
+                'orders' => $orders,
+                "cart" => $cart
+            ];
         $pdf = PDF::loadView('admin.cart.PDFCart', $data);
 
         return $pdf->download('tutsmake.pdf');

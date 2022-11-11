@@ -60,7 +60,6 @@ class CartService
     }
     public function addCart()
     {
-        // dd();
         try {
             DB::beginTransaction();
             $carts = Session::get('carts');
@@ -76,7 +75,7 @@ class CartService
             DB::commit();
             Session::flash('success', 'Đặt hàng thành công');
             Session::forget('carts');
-            // SendMail::dispatch(Auth::user()->email)->delay(now()->addSeconds(5));
+            SendMail::dispatch(Auth::user()->email)->delay(now()->addSeconds(5));
         } catch (\Throwable $th) {
             DB::rollBack();
             Session::flash('error', $th->getMessage());

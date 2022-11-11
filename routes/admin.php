@@ -78,7 +78,7 @@ Route::middleware('auth:admin')->group(function () {
         Route::get('view/{cart}', [CartController::class, 'view']);
         Route::DELETE('destroy', [CartController::class, 'destroy']);
         Route::get('/confirm/{id}', [CartController::class, 'confirm']);
-        Route::get('/create-pdf-file', [CartController::class, 'outputpdf'])->name('outputexcel');
+        Route::get('/create-pdf-file/{cart}', [CartController::class, 'outputpdf'])->name('outputexcel');
     });
     #excel
 

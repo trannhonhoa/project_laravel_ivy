@@ -52,7 +52,7 @@
                         </td>
                         <td style="font-size: 20px" colspan="2" align="center" class="column-4">
 
-                            <a href="{{ route('outputexcel') }}" class="btn btn-info">In đơn hàng</a>
+                            <a href="/admin/orders/create-pdf-file/{{ $order->cart_id }}" class="btn btn-info">In đơn hàng</a>
                         </td>
                     </tr>
                 </tbody>
