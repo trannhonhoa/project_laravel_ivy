@@ -78,7 +78,7 @@
                         </span>
 
                         <p class="stext-102 cl3 p-t-23">
-                            {{ $product->description }}
+                            {!! $product->content !!}
                         </p>
 
                         <!--  -->
