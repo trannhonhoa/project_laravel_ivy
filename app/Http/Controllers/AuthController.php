@@ -61,6 +61,9 @@ class AuthController extends Controller
     }
     public function showformlogin()
     {
+        if (Auth::check()) {
+            return redirect()->route(('main-client'));
+        }
         return view('client.user.login', [
             "title" => "Đăng nhập"
         ]);

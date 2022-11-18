@@ -36,8 +36,10 @@ class ProductClientService
     }
     public function related($id)
     {
-        return Product::where('id', $id)->where('active', 1)->with('menu')->firstOrFail()
-            ->where('id', '!=', $id)->limit(8)->get();
+       
+         $product = Product::where('id', $id)->where('active', 1)->with('menu')->firstOrFail();
+        return Product::where('menu_id', $product->menu_id)->where('active', 1)->with('menu')
+        ->where('id', '!=', $id)->limit(4)->get();
     }
     public function getSearch($params = null, $request)
     {

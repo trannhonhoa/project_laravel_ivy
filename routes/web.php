@@ -25,7 +25,7 @@ Route::get('carts', [CartController::class, 'show']);
 Route::post('update-cart', [CartController::class, 'update']);
 Route::get('carts/delete/{id}', [CartController::class, 'destroy']);
 
-Route::middleware(['checklogin'])->group(function () {
+Route::middleware('auth')->group(function () {
     Route::post('carts', [CartController::class, 'addCart']);
 });
 

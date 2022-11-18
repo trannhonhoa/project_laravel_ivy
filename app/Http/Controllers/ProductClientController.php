@@ -19,6 +19,7 @@ class ProductClientController extends Controller
         $productRelated = $this->productService->related($id);
         return view('client.product.product_details', [
             "title" => "Chi tiết sản phẩm",
+            "productRelated" => $productRelated,
             "product" => $product
         ]);
     }

@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/users/login', [LoginController::class, 'index'])->name('admin.login');
 Route::post('/users/login/store', [LoginController::class, 'store'])->name('admin.login.store');
 Route::middleware('auth:admin')->group(function () {
-    Route::get('/', [MainController::class, 'index'])->name('admin');
+    Route::get('/', [MainController::class, 'index'])->name('dashboard');
     Route::get('main', [MainController::class, 'index']);
 
     #Menu

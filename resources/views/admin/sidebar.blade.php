@@ -15,7 +15,7 @@
                  <img src="/template/admin/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
              </div>
              <div class="info">
-                 <a href="/admin" class="d-block">Giáo chủ cuồng dâm</a>
+                 <a href="/admin" class="d-block">Trần Nhơn Hòa</a>
              </div>
          </div>
 

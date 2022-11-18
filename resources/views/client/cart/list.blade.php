@@ -80,14 +80,15 @@
                                 </div>
 
                                 <div class="size-209 p-t-1">
-                                    <span class="mtext-110 cl2">
-                                        ${{ $total }}
+                                    $
+                                    <span id="totalPrice" class="mtext-110 cl2">
+                                        {{ $total }}
                                     </span>
                                 </div>
                             </div>
 
                             @if (Auth::user())
-                                <button class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">
+                                <button id="buttonOrder" class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">
                                     Đặt hàng
                                 </button>
                                 <hr>
@@ -163,7 +164,11 @@
 @endsection
 <script src="https://www.paypalobjects.com/api/checkout.js"></script>
 <script>
-    paypal.Button.render({
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const totalPrice = document.querySelector('#totalPrice')
+        // console.log(totalPrice.innerText)
+        const buttonOrder = document.querySelector('#buttonOrder');
+        paypal.Button.render({
         // Configure environment
         env: 'sandbox',
         client: {
@@ -183,10 +188,11 @@
 
         // Set up a payment
         payment: function(data, actions) {
+
             return actions.payment.create({
                 transactions: [{
                     amount: {
-                        total: '0.01',
+                        total: totalPrice.innerText,
                         currency: 'USD'
                     }
                 }]
@@ -195,9 +201,12 @@
         // Execute the payment
         onAuthorize: function(data, actions) {
             return actions.payment.execute().then(function() {
-                // Show a confirmation message to the buyer
-                window.alert('Thank you for your purchase!');
+                buttonOrder.click()
             });
         }
     }, '#paypal-button');
+    });
+
+
+    
 </script>

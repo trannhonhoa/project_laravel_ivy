@@ -2,7 +2,7 @@
     <div class="container">
         <div class="p-b-32">
             <h3 class="ltext-105 cl5 txt-center respon1">
-                Store Overview
+                Sản phẩm mới nhất
             </h3>
         </div>
 
