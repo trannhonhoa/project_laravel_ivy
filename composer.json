@@ -4,6 +4,7 @@
     "description": "The Laravel Framework.",
     "keywords": ["framework", "laravel"],
     "license": "MIT",
+    "post-install-cmd": ["ln -sr storage/app/public public/storage"],
     "require": {
         "php": "^8.0.2",
         "anhskohbo/no-captcha": "^3.4",
@@ -37,7 +38,7 @@
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/"
         },
-        "files":[
+        "files": [
             "app/Helpers/Helper.php"
         ]
     },

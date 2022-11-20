@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Session;
 use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\URL;
 
 class AuthController extends Controller
 {
@@ -26,7 +27,7 @@ class AuthController extends Controller
     public function register(Request $request)
     {
         if (Auth::check()) {
-            return redirect()->route(('main-client'));
+            return redirect()->back();
         }
 
         $this->validate($request, [
@@ -62,7 +63,7 @@ class AuthController extends Controller
     public function showformlogin()
     {
         if (Auth::check()) {
-            return redirect()->route(('main-client'));
+            return redirect()->back();
         }
         return view('client.user.login', [
             "title" => "Đăng nhập"
@@ -85,7 +86,7 @@ class AuthController extends Controller
     {
         Auth::logout();
         Session::forget('carts');
-        return redirect('/');
+        return redirect('/login');
     }
     // google login
     public function getGoogleLogin()
@@ -114,7 +115,7 @@ class AuthController extends Controller
             ]);
             // Sau đó đăng nhập
             Auth::login($newUser, true);
-            return redirect('/');
+            return redirect()->back();
         }
     }
 }
