@@ -59,7 +59,7 @@ class ProductService
     }
     public function get()
     {
-        $matchProduct = ['active' => 1, 'isDeleted' => false];
+        $matchProduct = ['isDeleted' => false];
         try {
             return Product::where($matchProduct)->with('menu')->orderByDesc('id')->paginate(20);
         } catch (\Throwable $th) {

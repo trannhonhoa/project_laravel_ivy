@@ -91,6 +91,7 @@ class MenuService
             $menu = Menu::where('id', $id)->first();
             if ($menu) {
                 Storage::delete($menu->thumb);
+                Product::where('menu_id', $id)->update(['isDeleted', true]);
                 return Menu::where('id', $id)->orWhere('parent_id', $id)->update($mathUpdate);
             }
         } catch (\Throwable $th) {
@@ -100,7 +101,7 @@ class MenuService
     }
     public function getProduct($menu, $request)
     {
-        $query =  $menu->products()->where('active', 1);
+        $query =  $menu->products()->where(['active'=> 1, "isDeleted" => false]);
         if ($request->input('price')) {
             $query->orderby('price', $request->input('price'));
         }

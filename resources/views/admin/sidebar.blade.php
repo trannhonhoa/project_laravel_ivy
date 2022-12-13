@@ -48,13 +48,13 @@
                          <li class="nav-item">
                              <a href="/admin/menus/add" class="nav-link">
                                  <i class="far fa-circle nav-icon"></i>
-                                 <p>Thêm sản phẩm</p>
+                                 <p>Thêm danh mục</p>
                              </a>
                          </li>
                          <li class="nav-item">
                              <a href="/admin/menus/list" class="nav-link">
                                  <i class="far fa-circle nav-icon"></i>
-                                 <p>Danh sách sản phẩm</p>
+                                 <p>Danh sách danh mục</p>
                              </a>
                          </li>
 
